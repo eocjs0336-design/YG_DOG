@@ -3,193 +3,152 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="양구 애견동반 판별기 - 반려견 크기, 여행 목적에 따라 양구군 내 반려동물 동반 가능 후보 장소와 방문 전 확인 질문을 30초 만에 확인해 보세요.">
-  <meta name="keywords" content="양구, 양구군, 반려견 동반, 애견동반, 양구 애견동반, 애견동반 판별기, 양구 여행, 반려견 여행">
-  <meta name="author" content="양구 애견동반 판별기">
+  <title>양구, 발걸음 가볍개 - 양구군 반려동물 동반 지도 판별기</title>
   
-  <!-- Open Graph / Facebook -->
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="반려동물과 함께 떠나는 양구군 여행! 펜션, 캠핑장, 카페, 식당, 관광지까지 반려견과 함께할 수 있는 양구의 모든 장소를 지도로 편리하게 확인하고 30초 만에 판별해 보세요.">
+  <meta name="keywords" content="양구군, 반려동물, 애견동반, 양구여행, 댕댕맵, 양구, 발걸음 가볍개, 반려견동반, 한반도섬, 양구수목원">
+  <meta property="og:title" content="양구, 발걸음 가볍개 - 양구군 반려동물 동반 지도 판별기">
+  <meta property="og:description" content="반려견과 함께하는 양구군 관광 지도 가이드. 숙소, 관광지, 식당/카페, 산책로 정보 총망라!">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://ygtour.kr/">
-  <meta property="og:title" content="양구 애견동반 판별기 MVP">
-  <meta property="og:description" content="30초 만에 끝나는 양구군 애견 동반 여행 판별. No-AD, Pure Data 기반의 실속형 정적 웹 유틸리티.">
-  <meta property="og:image" content="https://www.ygtour.kr/images/layout/logo.png">
-
-  <!-- Twitter -->
-  <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:title" content="양구 애견동반 판별기 MVP">
-  <meta property="twitter:description" content="30초 만에 끝나는 양구군 애견 동반 여행 판별. No-AD, Pure Data 기반의 실속형 정적 웹 유틸리티.">
-
-  <title>양구 애견동반 판별기 MVP | No-AD, Pure Data 기반 정적 웹</title>
   
-  <!-- Stylesheets -->
+  <!-- Favicon (Emoji as Icon) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐾</text></svg>">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <!-- Leaflet Map CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
+  <!-- App Custom CSS -->
   <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
 
-  <!-- 스킵 네비게이션 (웹 접근성) -->
-  <a href="#finder-form" class="nav-link" style="position: absolute; top: -100px; left: 0; background: var(--accent); color: white; padding: 10px; z-index: 9999; transition: top 0.2s;" onfocus="this.style.top='0px';" onblur="this.style.top='-100px';">본문 바로가기</a>
-
-  <!-- Header -->
-  <header class="header">
-    <div class="container header-container">
-      <a href="./" class="logo-link" aria-label="양구 애견동반 판별기 홈">
-        <span class="logo-icon" aria-hidden="true">🐶</span>
-        <span>양구 애견동반 판별기</span>
-      </a>
-      <nav class="nav-menu" aria-label="메인 네비게이션">
-        <a href="#finder-form" class="nav-link">판별기 시작</a>
-        <a href="#principles" class="nav-link">서비스 원칙</a>
-        <a href="#disclaimer" class="nav-link font-kr">면책 고지</a>
+  <!-- App Header -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="logo-area" id="btn-logo">
+        <span class="logo-emoji">🐾</span>
+        <h1 class="logo-text">양구, <span>발걸음 가볍개</span></h1>
+      </div>
+      <nav class="header-nav" aria-label="메인 메뉴">
+        <span class="nav-subtitle">양구군 애견동반 판별 지도</span>
       </nav>
     </div>
   </header>
 
-  <main>
-    <!-- Hero / Landing Section -->
-    <section class="hero" aria-labelledby="hero-title">
-      <div class="container">
-        <div class="hero-badge">
-          <span aria-hidden="true">🛡️</span> No-AD • Pure Data • 30초 완성
+  <!-- Main Container -->
+  <div class="app-container">
+    
+    <!-- Sidebar: 30% Width -->
+    <aside class="sidebar" id="sidebar">
+      
+      <!-- Search & Filters Container -->
+      <div class="search-filter-section">
+        
+        <!-- Text Search -->
+        <div class="search-bar">
+          <i data-lucide="search" class="search-icon" aria-hidden="true"></i>
+          <input type="text" id="search-input" placeholder="장소명, 주소, 꿀팁 검색 (예: 한반도섬, 캠핑)..." autocomplete="off" aria-label="장소 검색">
+          <button id="search-clear-btn" class="search-clear-btn hidden" aria-label="검색어 지우기">
+            <i data-lucide="x"></i>
+          </button>
         </div>
-        <h1 id="hero-title" class="hero-title">양구 애견동반 여행,<br>30초 만에 완벽 판별!</h1>
-        <p class="hero-subtitle">
-          반려견 크기, 여행 목적, 원하는 우선순위를 선택하세요.<br>
-          양구군 내 애견동반 후보 장소와 방문 전 꼭 물어봐야 할 질문 리스트를 즉시 추출합니다.
-        </p>
-        <button id="start-btn" class="hero-cta" aria-label="애견동반 판별 시작하기">
-          <span>지금 판별해보기</span> <span aria-hidden="true">➔</span>
-        </button>
-        <p class="hero-footer-note" aria-hidden="true">
-          <span>🚫 광고 없음</span>
-          <span>🔒 회원가입 없음</span>
-          <span>📍 실시간 위치수집 없음</span>
-        </p>
-      </div>
-    </section>
 
-    <!-- 30초 판별 폼 섹션 -->
-    <section class="finder-form-section" id="finder-form" aria-labelledby="form-heading">
-      <div class="container">
-        <h2 id="form-heading" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0;">판별 조건 선택</h2>
-        <div class="form-card">
-          <form class="form-grid" onsubmit="event.preventDefault();">
-            <!-- 반려견 크기 -->
-            <div class="form-group">
-              <label for="pet-size" class="form-label">
-                <span aria-hidden="true">🐕</span> 반려견 크기 선택
-              </label>
-              <select id="pet-size" class="form-select" aria-label="반려견 크기를 선택하세요">
-                <option value="all">전체 크기</option>
-                <option value="소형견">소형견 (10kg 미만)</option>
-                <option value="중형견">중형견 (10kg ~ 25kg)</option>
-                <option value="대형견">대형견 (25kg 이상)</option>
-              </select>
-            </div>
-
-            <!-- 여행 목적 -->
-            <div class="form-group">
-              <label for="purpose" class="form-label">
-                <span aria-hidden="true">🗺️</span> 여행 목적 태그
-              </label>
-              <select id="purpose" class="form-select" aria-label="여행 목적을 선택하세요">
-                <option value="all">전체 카테고리</option>
-                <option value="산책">가벼운 산책 코스</option>
-                <option value="관광지">주요 관광지 탐방</option>
-                <option value="카페·식당">맛있는 카페 · 식당</option>
-                <option value="숙박">하룻밤 묵는 펜션 · 민박</option>
-              </select>
-            </div>
-
-            <!-- 우선순위 -->
-            <div class="form-group">
-              <label for="priority" class="form-label">
-                <span aria-hidden="true">⚡</span> 결과 우선순위 정렬
-              </label>
-              <select id="priority" class="form-select" aria-label="우선 정렬 조건을 선택하세요">
-                <option value="trust">신뢰도 높은 순 (A등급 우선)</option>
-                <option value="official">공식 정보가 있는 곳 우선</option>
-                <option value="map">지도가 제공되는 곳 우선</option>
-                <option value="phone">전화 연결 가능한 곳 우선</option>
-              </select>
-            </div>
-          </form>
+        <!-- Category Buttons -->
+        <div class="category-filters" role="tablist" aria-label="장소 카테고리 필터">
+          <button class="category-btn active" data-category="전체" role="tab" aria-selected="true">
+            <i data-lucide="grid" aria-hidden="true"></i> 전체
+          </button>
+          <button class="category-btn" data-category="숙박" role="tab" aria-selected="false">
+            <i data-lucide="home" aria-hidden="true"></i> 숙소
+          </button>
+          <button class="category-btn" data-category="카페·식당" role="tab" aria-selected="false">
+            <i data-lucide="coffee" aria-hidden="true"></i> 식당/카페
+          </button>
+          <button class="category-btn" data-category="관광지" role="tab" aria-selected="false">
+            <i data-lucide="palmtree" aria-hidden="true"></i> 관광지
+          </button>
+          <button class="category-btn" data-category="산책" role="tab" aria-selected="false">
+            <i data-lucide="navigation" aria-hidden="true"></i> 산책로
+          </button>
         </div>
-      </div>
-    </section>
 
-    <!-- 결과 리스트 섹션 -->
-    <section class="results-section" aria-labelledby="results-heading">
-      <div class="container">
-        <div class="results-summary">
-          <h2 id="results-heading" class="results-count">양구 애견동반 추천 장소 : <span id="total-count">0</span>곳</h2>
-          <span style="font-size: 0.85rem; color: var(--text-muted);">조건 변경 시 즉시 반영됩니다.</span>
+        <!-- Pet Conditions Filter -->
+        <div class="pet-conditions-filter">
+          <span class="filter-title">반려견 동반 필수 필터:</span>
+          <div class="condition-chips">
+            <button class="condition-chip" data-condition="소형견">소형견 가능</button>
+            <button class="condition-chip" data-condition="중형견">중형견 가능</button>
+            <button class="condition-chip" data-condition="대형견">대형견 가능</button>
+          </div>
+        </div>
+
+        <!-- Priority Sort Filter (기획서 우선순위 로직 결합) -->
+        <div class="priority-sort-filter">
+          <label for="priority-select" class="filter-title">결과 정렬 기준:</label>
+          <select id="priority-select" class="sort-select" aria-label="정렬 조건을 선택하세요">
+            <option value="trust">신뢰도 높은 순 (A등급 우선)</option>
+            <option value="official">공식 정보가 있는 곳 우선</option>
+            <option value="map">지도가 제공되는 곳 우선</option>
+            <option value="phone">전화 연결 가능한 곳 우선</option>
+          </select>
+        </div>
+
+      </div>
+
+      <!-- Places List -->
+      <div class="list-section">
+        <div class="list-header">
+          <span class="count-text">총 <strong id="place-count">0</strong>개의 추천 장소</span>
+          <button class="reset-filter-btn" id="btn-reset-filters">필터 초기화</button>
         </div>
         
-        <!-- 에러 발생 시 노출되는 영역 -->
-        <div id="error-container" style="display: none;"></div>
-
-        <!-- 카드 리스트 반복 렌더링 그리드 -->
-        <div class="places-grid" id="places-grid">
-          <!-- JS에서 동적으로 채워집니다. -->
+        <!-- Places List Target -->
+        <div class="places-list" id="places-list" role="region" aria-live="polite">
+          <!-- JS에서 동적으로 데이터 카드 렌더링 -->
         </div>
       </div>
-    </section>
+    </aside>
 
-    <!-- 서비스 제공 원칙 섹션 -->
-    <section class="principles-section" id="principles" aria-labelledby="principles-heading">
-      <div class="container">
-        <h2 id="principles-heading" class="section-title">판별기 서비스 제공 원칙</h2>
-        <div class="principles-grid">
-          <div class="principle-card">
-            <div class="principle-icon" aria-hidden="true">🚫</div>
-            <h3 class="principle-title">No Advertising (광고 없음)</h3>
-            <p class="principle-desc">제휴 마케팅이나 쿠팡 파트너스, 애드센스 등 사용자를 방해하는 유료 광고 배너나 팝업이 일절 없습니다.</p>
-          </div>
-          <div class="principle-card">
-            <div class="principle-icon" aria-hidden="true">🔒</div>
-            <h3 class="principle-title">No Personal Info (비회원제)</h3>
-            <p class="principle-desc">회원가입, 로그인, 실시간 개인의 위치 정보를 절대 수집하지 않고, 오직 검색 필터만을 정직하게 처리합니다.</p>
-          </div>
-          <div class="principle-card">
-            <div class="principle-icon" aria-hidden="true">🔍</div>
-            <h3 class="principle-title">Check Before Visit (방문 전 필수)</h3>
-            <p class="principle-desc">장소별 맞춤형 방문 확인 체크리스트를 클릭 한 번에 클립보드 복사할 수 있어 현장 통화 확인이 빠릅니다.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- Map Area: 70% Width -->
+    <main class="map-area">
+      <!-- Leaflet Map Div -->
+      <div id="map" aria-label="양구군 애견동반 인터랙티브 지도"></div>
+      
+      <!-- Mobile Floating View Toggle Button -->
+      <button class="mobile-toggle-view-btn" id="btn-mobile-toggle" aria-label="목록 보기로 전환">
+        <i data-lucide="list"></i> <span>목록 보기</span>
+      </button>
+    </main>
 
-    <!-- 면책 조항 및 고지 -->
-    <section class="disclaimer-section" id="disclaimer" aria-labelledby="disclaimer-heading">
-      <div class="container">
-        <div class="disclaimer-box">
-          <h2 id="disclaimer-heading" class="disclaimer-title">
-            <span aria-hidden="true">⚠️</span> 중요 면책 및 유의 고지 사항
-          </h2>
-          <ul class="disclaimer-list">
-            <li>본 서비스에서 제공되는 정보는 공공데이터 및 온라인 유저 커뮤니티 제보 데이터를 가공한 반려동물 동반 가능 <strong>'후보 장소'</strong>입니다.</li>
-            <li>개별 사업장 및 공공 기관의 현장 상황, 반려견의 상세 견종(맹견류 여부 등) 또는 요일에 따라 실제 동반 정책이 사전 고지 없이 수시로 변동될 수 있습니다.</li>
-            <li>현장에서 겪는 불이익이나 오해를 사전에 예방하기 위해, 여행 출발 직전 <strong>제공된 질문 템플릿을 복사하여 전화 문의 또는 공식 웹페이지를 반드시 재확인</strong>하시는 것을 적극 권장합니다.</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-  </main>
+  </div>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-links">
-        <a href="https://www.yanggu.go.kr" target="_blank" rel="noopener noreferrer" class="footer-link">양구군청</a>
-        <a href="https://www.ygtour.kr" target="_blank" rel="noopener noreferrer" class="footer-link">양구군 문화관광</a>
-        <a href="https://map.naver.com" target="_blank" rel="noopener noreferrer" class="footer-link">네이버 지도</a>
-      </div>
-      <p>데이터 출처: 한국관광공사 TourAPI, 양구군 문화관광 데이터, 유저 제보 수집</p>
-      <p class="footer-copyright">&copy; 2026 양구 애견동반 판별기. All Rights Reserved.</p>
+  <!-- Detail Information Panel (Slide-in) -->
+  <div class="detail-panel" id="detail-panel" role="dialog" aria-modal="true" aria-hidden="true">
+    <button class="detail-close-btn" id="btn-detail-close" aria-label="상세 패널 닫기">
+      <i data-lucide="x"></i>
+    </button>
+    
+    <div class="detail-content" id="detail-content">
+      <!-- JS에서 카드를 클릭했을 때 해당 장소의 상세 내용, 4대 포털 검색링크, 질문 복사 템플릿 주입 -->
     </div>
-  </footer>
+  </div>
+  
+  <!-- Backdrop for Detail Panel on Mobile -->
+  <div class="panel-backdrop" id="panel-backdrop"></div>
 
-  <!-- Core JavaScript -->
+  <!-- Leaflet Map JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  
+  <!-- Lucide Icons Library (For UI Icons) -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- App Custom Logic -->
   <script src="./js/app.js"></script>
 </body>
 </html>
