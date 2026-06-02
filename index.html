@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="양구 애견동반 판별기 - 반려견 크기, 여행 목적에 따라 양구군 내 반려동물 동반 가능 후보 장소와 방문 전 확인 질문을 30초 만에 확인해 보세요.">
+  <meta name="keywords" content="양구, 양구군, 반려견 동반, 애견동반, 양구 애견동반, 애견동반 판별기, 양구 여행, 반려견 여행">
+  <meta name="author" content="양구 애견동반 판별기">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://ygtour.kr/">
+  <meta property="og:title" content="양구 애견동반 판별기 MVP">
+  <meta property="og:description" content="30초 만에 끝나는 양구군 애견 동반 여행 판별. No-AD, Pure Data 기반의 실속형 정적 웹 유틸리티.">
+  <meta property="og:image" content="https://www.ygtour.kr/images/layout/logo.png">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:title" content="양구 애견동반 판별기 MVP">
+  <meta property="twitter:description" content="30초 만에 끝나는 양구군 애견 동반 여행 판별. No-AD, Pure Data 기반의 실속형 정적 웹 유틸리티.">
+
+  <title>양구 애견동반 판별기 MVP | No-AD, Pure Data 기반 정적 웹</title>
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+
+  <!-- 스킵 네비게이션 (웹 접근성) -->
+  <a href="#finder-form" class="nav-link" style="position: absolute; top: -100px; left: 0; background: var(--accent); color: white; padding: 10px; z-index: 9999; transition: top 0.2s;" onfocus="this.style.top='0px';" onblur="this.style.top='-100px';">본문 바로가기</a>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container header-container">
+      <a href="./" class="logo-link" aria-label="양구 애견동반 판별기 홈">
+        <span class="logo-icon" aria-hidden="true">🐶</span>
+        <span>양구 애견동반 판별기</span>
+      </a>
+      <nav class="nav-menu" aria-label="메인 네비게이션">
+        <a href="#finder-form" class="nav-link">판별기 시작</a>
+        <a href="#principles" class="nav-link">서비스 원칙</a>
+        <a href="#disclaimer" class="nav-link font-kr">면책 고지</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero / Landing Section -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container">
+        <div class="hero-badge">
+          <span aria-hidden="true">🛡️</span> No-AD • Pure Data • 30초 완성
+        </div>
+        <h1 id="hero-title" class="hero-title">양구 애견동반 여행,<br>30초 만에 완벽 판별!</h1>
+        <p class="hero-subtitle">
+          반려견 크기, 여행 목적, 원하는 우선순위를 선택하세요.<br>
+          양구군 내 애견동반 후보 장소와 방문 전 꼭 물어봐야 할 질문 리스트를 즉시 추출합니다.
+        </p>
+        <button id="start-btn" class="hero-cta" aria-label="애견동반 판별 시작하기">
+          <span>지금 판별해보기</span> <span aria-hidden="true">➔</span>
+        </button>
+        <p class="hero-footer-note" aria-hidden="true">
+          <span>🚫 광고 없음</span>
+          <span>🔒 회원가입 없음</span>
+          <span>📍 실시간 위치수집 없음</span>
+        </p>
+      </div>
+    </section>
+
+    <!-- 30초 판별 폼 섹션 -->
+    <section class="finder-form-section" id="finder-form" aria-labelledby="form-heading">
+      <div class="container">
+        <h2 id="form-heading" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0;">판별 조건 선택</h2>
+        <div class="form-card">
+          <form class="form-grid" onsubmit="event.preventDefault();">
+            <!-- 반려견 크기 -->
+            <div class="form-group">
+              <label for="pet-size" class="form-label">
+                <span aria-hidden="true">🐕</span> 반려견 크기 선택
+              </label>
+              <select id="pet-size" class="form-select" aria-label="반려견 크기를 선택하세요">
+                <option value="all">전체 크기</option>
+                <option value="소형견">소형견 (10kg 미만)</option>
+                <option value="중형견">중형견 (10kg ~ 25kg)</option>
+                <option value="대형견">대형견 (25kg 이상)</option>
+              </select>
+            </div>
+
+            <!-- 여행 목적 -->
+            <div class="form-group">
+              <label for="purpose" class="form-label">
+                <span aria-hidden="true">🗺️</span> 여행 목적 태그
+              </label>
+              <select id="purpose" class="form-select" aria-label="여행 목적을 선택하세요">
+                <option value="all">전체 카테고리</option>
+                <option value="산책">가벼운 산책 코스</option>
+                <option value="관광지">주요 관광지 탐방</option>
+                <option value="카페·식당">맛있는 카페 · 식당</option>
+                <option value="숙박">하룻밤 묵는 펜션 · 민박</option>
+              </select>
+            </div>
+
+            <!-- 우선순위 -->
+            <div class="form-group">
+              <label for="priority" class="form-label">
+                <span aria-hidden="true">⚡</span> 결과 우선순위 정렬
+              </label>
+              <select id="priority" class="form-select" aria-label="우선 정렬 조건을 선택하세요">
+                <option value="trust">신뢰도 높은 순 (A등급 우선)</option>
+                <option value="official">공식 정보가 있는 곳 우선</option>
+                <option value="map">지도가 제공되는 곳 우선</option>
+                <option value="phone">전화 연결 가능한 곳 우선</option>
+              </select>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- 결과 리스트 섹션 -->
+    <section class="results-section" aria-labelledby="results-heading">
+      <div class="container">
+        <div class="results-summary">
+          <h2 id="results-heading" class="results-count">양구 애견동반 추천 장소 : <span id="total-count">0</span>곳</h2>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">조건 변경 시 즉시 반영됩니다.</span>
+        </div>
+        
+        <!-- 에러 발생 시 노출되는 영역 -->
+        <div id="error-container" style="display: none;"></div>
+
+        <!-- 카드 리스트 반복 렌더링 그리드 -->
+        <div class="places-grid" id="places-grid">
+          <!-- JS에서 동적으로 채워집니다. -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 서비스 제공 원칙 섹션 -->
+    <section class="principles-section" id="principles" aria-labelledby="principles-heading">
+      <div class="container">
+        <h2 id="principles-heading" class="section-title">판별기 서비스 제공 원칙</h2>
+        <div class="principles-grid">
+          <div class="principle-card">
+            <div class="principle-icon" aria-hidden="true">🚫</div>
+            <h3 class="principle-title">No Advertising (광고 없음)</h3>
+            <p class="principle-desc">제휴 마케팅이나 쿠팡 파트너스, 애드센스 등 사용자를 방해하는 유료 광고 배너나 팝업이 일절 없습니다.</p>
+          </div>
+          <div class="principle-card">
+            <div class="principle-icon" aria-hidden="true">🔒</div>
+            <h3 class="principle-title">No Personal Info (비회원제)</h3>
+            <p class="principle-desc">회원가입, 로그인, 실시간 개인의 위치 정보를 절대 수집하지 않고, 오직 검색 필터만을 정직하게 처리합니다.</p>
+          </div>
+          <div class="principle-card">
+            <div class="principle-icon" aria-hidden="true">🔍</div>
+            <h3 class="principle-title">Check Before Visit (방문 전 필수)</h3>
+            <p class="principle-desc">장소별 맞춤형 방문 확인 체크리스트를 클릭 한 번에 클립보드 복사할 수 있어 현장 통화 확인이 빠릅니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 면책 조항 및 고지 -->
+    <section class="disclaimer-section" id="disclaimer" aria-labelledby="disclaimer-heading">
+      <div class="container">
+        <div class="disclaimer-box">
+          <h2 id="disclaimer-heading" class="disclaimer-title">
+            <span aria-hidden="true">⚠️</span> 중요 면책 및 유의 고지 사항
+          </h2>
+          <ul class="disclaimer-list">
+            <li>본 서비스에서 제공되는 정보는 공공데이터 및 온라인 유저 커뮤니티 제보 데이터를 가공한 반려동물 동반 가능 <strong>'후보 장소'</strong>입니다.</li>
+            <li>개별 사업장 및 공공 기관의 현장 상황, 반려견의 상세 견종(맹견류 여부 등) 또는 요일에 따라 실제 동반 정책이 사전 고지 없이 수시로 변동될 수 있습니다.</li>
+            <li>현장에서 겪는 불이익이나 오해를 사전에 예방하기 위해, 여행 출발 직전 <strong>제공된 질문 템플릿을 복사하여 전화 문의 또는 공식 웹페이지를 반드시 재확인</strong>하시는 것을 적극 권장합니다.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-links">
+        <a href="https://www.yanggu.go.kr" target="_blank" rel="noopener noreferrer" class="footer-link">양구군청</a>
+        <a href="https://www.ygtour.kr" target="_blank" rel="noopener noreferrer" class="footer-link">양구군 문화관광</a>
+        <a href="https://map.naver.com" target="_blank" rel="noopener noreferrer" class="footer-link">네이버 지도</a>
+      </div>
+      <p>데이터 출처: 한국관광공사 TourAPI, 양구군 문화관광 데이터, 유저 제보 수집</p>
+      <p class="footer-copyright">&copy; 2026 양구 애견동반 판별기. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Core JavaScript -->
+  <script src="./js/app.js"></script>
+</body>
+</html>
